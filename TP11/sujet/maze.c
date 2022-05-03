@@ -363,19 +363,19 @@ maze_t *random_maze(int lig, int col)
 {
   maze_t *m = compartmentalized_maze(lig, col);
   bool visited[lig][col];
-  int deci, nbmurs = 0, i, j;
+  int k, nb = 0, i, j;
+  int valActu, valAdja;
   srand(time(NULL));
-  while (nbmurs != (lig * col) - 1)
+  while (nb != (lig * col) - 1)
   {
     for (i = 0; i < lig; ++i)
     {
       for (j = 0; j < col; ++j)
       {
         visited[i][j] = 0;
-        deci = rand() % (2);
+        k = rand() % (2);
 
-        int valActu, valAdja;
-        if (deci == 0 && (j + 1) != col)
+                if (k == 0 && (j + 1) != col)
         {
 
           valActu = m->cells[i * col + j].valeur;
@@ -390,7 +390,7 @@ maze_t *random_maze(int lig, int col)
             }
             *wall_right(m, i, j) = 0;
 
-            nbmurs++;
+            nb++;
           }
         }
         else if ((i + 1) != lig)
@@ -407,7 +407,7 @@ maze_t *random_maze(int lig, int col)
             }
             *wall_under(m, i, j) = 0;
 
-            nbmurs++;
+            nb++;
           }
         }
       }
