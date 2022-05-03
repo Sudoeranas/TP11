@@ -374,19 +374,19 @@ maze_t *random_maze(int lig, int col)
         visited[i][j] = 0;
         deci = rand() % (2);
 
-        int valCellActuelle, valCelleAdjacente;
+        int valActu, valAdja;
         if (deci == 0 && (j + 1) != col)
         {
 
-          valCellActuelle = m->cells[i * col + j].valeur;
-          valCelleAdjacente = m->cells[i * col + j + 1].valeur;
+          valActu = m->cells[i * col + j].valeur;
+          valAdja = m->cells[i * col + j + 1].valeur;
 
-          if (valCellActuelle != valCelleAdjacente)
+          if (valActu != valAdja)
           {
             for (int k = 0; k < lig * col; k++)
             {
-              if (m->cells[k].valeur == valCelleAdjacente)
-                m->cells[k].valeur = valCellActuelle;
+              if (m->cells[k].valeur == valAdja)
+                m->cells[k].valeur = valActu;
             }
             *wall_right(m, i, j) = 0;
 
@@ -395,15 +395,15 @@ maze_t *random_maze(int lig, int col)
         }
         else if ((i + 1) != lig)
         {
-          valCellActuelle = m->cells[i * col + j].valeur;
-          valCelleAdjacente = m->cells[(i + 1) * col + j].valeur;
+          valActu = m->cells[i * col + j].valeur;
+          valAdja = m->cells[(i + 1) * col + j].valeur;
 
-          if (valCellActuelle != valCelleAdjacente)
+          if (valActu != valAdja)
           {
             for (int k = 0; k < lig * col; k++)
             {
-              if (m->cells[k].valeur == valCelleAdjacente)
-                m->cells[k].valeur = valCellActuelle;
+              if (m->cells[k].valeur == valAdja)
+                m->cells[k].valeur = valActu;
             }
             *wall_under(m, i, j) = 0;
 
