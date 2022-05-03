@@ -118,10 +118,47 @@ int main(void) {  /////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\
    memcpy(m->wallv, wv, 24 * sizeof(int)); 
 */
   int NL,NC;
+<<<<<<< HEAD
+=======
+  int k = 0; //permet de donner facilement la valeur des cases
+
+
+>>>>>>> 1b21b75575bc2ceda6222ffb2475f56d236d2b79
   
   printf("\n quel sera le nombre de lignes de votre labyrinthe ? ");scanf("%d",&NL);
   printf("\n quel sera le nombre de colonnes de votre labyrinthe ? ");scanf("%d",&NC);
   maze_t *m = compartmentalized_maze(NL, NC); 
+<<<<<<< HEAD
+=======
+  for (int i = 0; i < m->col; i++)
+  {
+    for (int j = 0; j < m->row; j++)
+    {
+      m->cells[k].valeur = k;
+      m->cells[k].visited = 0;
+    
+      if (k == 0 || k == ((m->col * m->row)-1) || k == (m->col * ((m->row)-1)))
+        m->cells[k].nbDirections = 2;
+      else if (k < m->col && k != 0)
+        m->cells[k].nbDirections = 3;
+      else if  (k >= m->col && (k%m->col == 0 || (k+1)%m->col == 0) && k < (m->col * ((m->row)-1)))
+        m->cells[k].nbDirections = 3;
+        m->cells[k].nbDirections = 2
+    
+
+      }
+      
+      k++;
+      }
+  }
+
+
+
+
+
+
+
+>>>>>>> 1b21b75575bc2ceda6222ffb2475f56d236d2b79
   print_mazePLEIN(m);
   
   
@@ -141,7 +178,12 @@ bool *wall_right(maze_t *m, int row, int col) {
 
 // Accès (en lecture et écriture) au mur horizontal au dessous de la
 // cellule row, col du labyrinthe m
+<<<<<<< HEAD
 bool *wall_under(maze_t *m, int row, int col) {
+=======
+bool *wall_under(maze_t *m, int row, int col)
+{
+>>>>>>> 1b21b75575bc2ceda6222ffb2475f56d236d2b79
   if (row > m->row - 1 || col > m->col)
     return NULL;
   return &(m->wallh[row * m->col + col]);
@@ -211,6 +253,7 @@ void print_maze_raw(maze_t const *m) {
   printf("row : %d, col : %d\n", m->row, m->col);
   printf("wallh %d lignes x %d colonnes :\n", m->row - 1, m->col);
   for (int i = 0; i < m->row - 1; ++i) {
+<<<<<<< HEAD
     for (int j = 0; j < m->col; ++j)
       printf("%d ", m->wallh[i * m->col + j]);
     printf("\n");
@@ -219,6 +262,20 @@ void print_maze_raw(maze_t const *m) {
   printf("wallv %d lignes x %d colonnes :\n", m->row, m->col - 1);
   for (int i = 0; i < m->row; ++i) {
     for (int j = 0; j < m->col - 1; ++j)
+=======
+  for (int i = 0; i < m->row; ++i)
+
+    for (int j = 0; j < m->col; ++j)
+      m->cells[i * col + j].valeur = i * col + j;
+  return m;
+}
+
+void print_maze_raw(maze_t const *m)
+{
+  printf("row : %d, col : %d\n", m->row, m->col);
+  printf("wallh %d lignes x %d colonnes :\n", m->row - 1, m->col);
+  for (int i = 0; i < m->row - 1; ++i)
+>>>>>>> 1b21b75575bc2ceda6222ffb2475f56d236d2b79
       printf("%d ", m->wallv[i * (m->col - 1) + j]);
     printf("\n");
   }
@@ -288,6 +345,7 @@ void print_mazePLEIN(maze_t const *m) {
     }
     printf("%s|\n", m->wallh[(i + 1) * m->col - 1] ? "_" : " ");
     // "|" : m->wallh[(i + 1) * m->col + j] ? "_" : " "
+<<<<<<< HEAD
   }
   
   // Mur inférieur
@@ -314,6 +372,13 @@ maze_t *random_maze(int row, int col) {
   
   
   
+=======
+
+  // Mur inférieur
+
+  for (int i = 0; i < row; ++i)
+
+>>>>>>> 1b21b75575bc2ceda6222ffb2475f56d236d2b79
   return m;
 }
 
