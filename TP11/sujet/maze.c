@@ -25,7 +25,7 @@ typedef struct {
     char direction; // u d r ou l 
     int nbDirections;// ou nbrVoisins : c'est à dire le nb de cases utiles dans directionsPossibles et QuatreVoisins
     char directionsPossibles[5];
-    int QuatreVoisins[4];// valeur des 4(ou-) voisins 
+    int QuatreVoisins[5];// valeur des 4(ou-) voisins 
 } T_cellule;
 typedef struct {
   //  v________ 
@@ -118,15 +118,69 @@ int main(void) {  /////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\
    memcpy(m->wallv, wv, 24 * sizeof(int)); 
 */
   int NL,NC;
+  int k=0;//compteur valeur case
+  int tampon=0;
+  int compteur = 0;
   
   printf("\n quel sera le nombre de lignes de votre labyrinthe ? ");scanf("%d",&NL);
   printf("\n quel sera le nombre de colonnes de votre labyrinthe ? ");scanf("%d",&NC);
   maze_t *m = compartmentalized_maze(NL, NC); 
   print_mazePLEIN(m);
   
+  for (int i = 0; i < m->col; i++)
+  {
+    for (int j = 0; j < m->row; j++)
+    {
+      m->cells[k].valeur = k;
+      m->cells[k].visited = 0;
+      m->cells[k].direction = '-';
+      //verification//printf("\n\n[%d]\n",m->cells[k].valeur);
+      if (k-1 >= 0 && k%m->col!=0 && k!= (m->col * ((m->row)-1))) 
+          {
+            m->cells[k].QuatreVoisins[tampon]=k-1; 
+            tampon++;
+          }
+        if ((k+1)%m->col!=0 && k != (m->col * m->row)-1) 
+          {
+            m->cells[k].QuatreVoisins[tampon]=k+1; 
+            tampon++;
+          }
+        if (k-(m->col) >= 0) 
+          {
+            m->cells[k].QuatreVoisins[tampon]=k-(m->col);
+            tampon++;
+          }
+        if (k+(m->col) < m->col * m->row)
+          {
+            m->cells[k].QuatreVoisins[tampon]=k+(m->col);
+            tampon++;
+          }  
+          m->cells[k].QuatreVoisins[tampon]=-1;
+      for (int i = 0; m->cells[k].QuatreVoisins[i] != -1;i++){
+        compteur++;
+      }
+       m->cells[k].nbDirections = compteur;
+
+      /*verification
+      printf("[%d]\n\n",m->cells[k].nbDirections);
+      for (int dv = 0; dv < 4; dv++)
+      {
+        
+        printf("[%d]",m->cells[k].QuatreVoisins[dv]);
+      }*/
+      
+
+      tampon = 0;
+      k++;
+      compteur = 0;
+
+    }
+  }
+
+
+  
   
   free_maze(m);
-  
   return 0;
 }
 
