@@ -16,19 +16,20 @@
 
 // Représente un chemin sous la forme d'une chaîne de caractères
 // composée des lettres u (up), d (down), l (left), r (right).
-typedef char* path_t; 
+typedef char *path_t;
 
-
-typedef struct {
-    int valeur;
-    bool visited;
-    char direction; // u d r ou l 
-    int nbDirections;// ou nbrVoisins : c'est à dire le nb de cases utiles dans directionsPossibles et QuatreVoisins
-    char directionsPossibles[5];
-    int QuatreVoisins[4];// valeur des 4(ou-) voisins 
+typedef struct
+{
+  int valeur;
+  bool visited;
+  char direction;   // u d r ou l
+  int nbDirections; // ou nbrVoisins : c'est à dire le nb de cases utiles dans directionsPossibles et QuatreVoisins
+  char directionsPossibles[5];
+  int QuatreVoisins[4]; // valeur des 4(ou-) voisins
 } T_cellule;
-typedef struct {
-  //  v________ 
+typedef struct
+{
+  //  v________
   // |   ______| ^
   // | |_____  | |
   // |  _|   | | |
@@ -172,7 +173,8 @@ bool *wall_right(maze_t *m, int row, int col) {
 
 // Accès (en lecture et écriture) au mur horizontal au dessous de la
 // cellule row, col du labyrinthe m
-bool *wall_under(maze_t *m, int row, int col) {
+bool *wall_under(maze_t *m, int row, int col)
+{
   if (row > m->row - 1 || col > m->col)
     return NULL;
   return &(m->wallh[row * m->col + col]);
@@ -242,14 +244,18 @@ void print_maze_raw(maze_t const *m) {
   printf("row : %d, col : %d\n", m->row, m->col);
   printf("wallh %d lignes x %d colonnes :\n", m->row - 1, m->col);
   for (int i = 0; i < m->row - 1; ++i) {
-    for (int j = 0; j < m->col; ++j)
-      printf("%d ", m->wallh[i * m->col + j]);
-    printf("\n");
-  }
+  for (int i = 0; i < m->row; ++i)
 
-  printf("wallv %d lignes x %d colonnes :\n", m->row, m->col - 1);
-  for (int i = 0; i < m->row; ++i) {
-    for (int j = 0; j < m->col - 1; ++j)
+    for (int j = 0; j < m->col; ++j)
+      m->cells[i * col + j].valeur = i * col + j;
+  return m;
+}
+
+void print_maze_raw(maze_t const *m)
+{
+  printf("row : %d, col : %d\n", m->row, m->col);
+  printf("wallh %d lignes x %d colonnes :\n", m->row - 1, m->col);
+  for (int i = 0; i < m->row - 1; ++i)
       printf("%d ", m->wallv[i * (m->col - 1) + j]);
     printf("\n");
   }
@@ -319,32 +325,11 @@ void print_mazePLEIN(maze_t const *m) {
     }
     printf("%s|\n", m->wallh[(i + 1) * m->col - 1] ? "_" : " ");
     // "|" : m->wallh[(i + 1) * m->col + j] ? "_" : " "
-  }
-  
+
   // Mur inférieur
-  printf("|");
-  for (int i = 0; i < m->col - 1; ++i)
-    printf(m->wallv[(m->row - 1) * (m->col - 1) + i] ? "_|" : "__");
-  printf("v|\n");
-}
-
-
-
-
-
-maze_t *random_maze(int row, int col) {
-  maze_t *m = compartmentalized_maze(row, col);
-  bool visited[row][col];
 
   for (int i = 0; i < row; ++i)
-    for (int j = 0; j < col; ++j)
-      visited[i][j] = 0;
-    
-  
 
-  
-  
-  
   return m;
 }
 
